@@ -1,0 +1,28 @@
+
+---
+
+
+# mingus.midi.MidiFileIn #
+
+
+
+> MidiFileIn is a module that can read a MIDI file and convert it into
+> mingus.containers objects.
+
+
+
+
+---
+
+
+## Functions ##
+
+### `MIDI_to_Composition(file)` ###
+
+  * Converts a MIDI file to a mingus.containers.Composition and returns it in a tuple with the last used tempo in beats per minute (this will change in the future). This function can raise all kinds of exceptions (IOError, HeaderError, TimeDivisionError, FormatError), so be sure to try and catch.
+
+
+---
+
+
+[Back to Index](mingusIndex.md)

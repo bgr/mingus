@@ -1,0 +1,82 @@
+
+---
+
+
+# mingus.containers.Suite #
+
+The	Suite class is a datastructure that stores [Composition](refMingusContainersComposition.md) objects.
+
+
+---
+
+
+## Attributes ##
+
+### `author` ###
+
+  * **Type**: str
+  * **Value**: ''
+
+### `compositions` ###
+
+  * **Type**: list
+  * **Value**: [.md](.md)
+
+### `email` ###
+
+  * **Type**: str
+  * **Value**: ''
+
+### `subtitle` ###
+
+  * **Type**: str
+  * **Value**: ''
+
+### `title` ###
+
+  * **Type**: str
+  * **Value**: 'Untitled'
+
+
+---
+
+
+## Functions ##
+
+### `__add__(self, composition)` ###
+
+  * Overloads the + operator for Compositions.
+
+### `__getitem__(self, index)` ###
+
+  * Overloads the [.md](.md) notation
+
+### `__init__(self)` ###
+
+### `__len__(self)` ###
+
+  * Overloads the len() function
+
+### `__setitem__(self, index, value)` ###
+
+  * Overloads the [.md](.md) = notation
+
+### `add_composition(self, composition)` ###
+
+  * Adds a [composition](refMingusContainersComposition.md) to the suite. Raises an UnexpectedObjectError when the supplied argument is not a [Composition](refMingusContainersComposition.md) object.
+
+### `set_author(self, author, email)` ###
+
+  * **Default values**: email = ''
+  * Sets the author of the suite
+
+### `set_title(self, title, subtitle)` ###
+
+  * **Default values**: subtitle = ''
+  * Sets the title and the subtitle of the suite
+
+
+---
+
+
+[Back to Index](mingusIndex.md)
