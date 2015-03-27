@@ -33,6 +33,7 @@ import inspect
 import sys
 import os
 import inspect
+import collections
 
 class Documize(object):
 
@@ -58,7 +59,7 @@ class Documize(object):
         # Gather all the documentation
         for element in dir(self.module):
             e = eval('{0}.{1}'.format(self.module_string, element))
-            if not callable(e):
+            if not isinstance(e, collections.Callable):
                 self.generate_non_callable_docs(element, e)
             else:
                 self.generate_callable_wikidocs(element, e)
@@ -97,8 +98,8 @@ class Documize(object):
         if type(evaled) in [types.FunctionType, types.MethodType]:
             self.functions.append(self.generate_function_wikidocs(
                 element_string, evaled))
-        elif type(evaled) == types.ClassType:
-            print 'CLASS'
+        elif type(evaled) == type:
+            print('CLASS')
         else:
             # print "Unknown callable object %s " % element_string
             pass
@@ -176,40 +177,40 @@ def generate_package_wikidocs(package_string, file_prefix='ref',
         file_suffix='.wiki'):
     d = Documize()
     package = eval(package_string)
-    print '\nGenerating documentation for package {0}'.format(package_string)
+    print('\nGenerating documentation for package {0}'.format(package_string))
     for element in dir(package):
-        if not callable(element):
+        if not isinstance(element, collections.Callable):
             fullname = '{0}.{1}'.format(package_string, element)
             if (type(eval(fullname)) == types.ModuleType or
-                    type(eval(fullname)) == types.ClassType):
+                    type(eval(fullname)) == type):
                 d.set_module(fullname)
                 wikiname = file_prefix
                 for parts in fullname.split('.'):
                     wikiname += parts.capitalize()
                 wikiname += file_suffix
-                print 'Writing {0}...'.format(wikiname),
+                print('Writing {0}...'.format(wikiname), end=' ')
                 result = d.output_wiki()
                 try:
                     f = open(os.path.join(sys.argv[1], wikiname), 'w')
                     try:
                         f.write(result)
-                        print 'OK'
+                        print('OK')
                     except:
-                        print "ERROR. Couldn't write to file."
+                        print("ERROR. Couldn't write to file.")
                     f.close()
                 except:
-                    print "ERROR. Couldn't open file for writing."
+                    print("ERROR. Couldn't open file for writing.")
 
 def main():
-    print 'mingus version 0.5, Copyright (C) 2008-2011, Bart Spaans\n'
-    print 'mingus comes with ABSOLUTELY NO WARRANTY. This is free'
-    print 'software and you are welcome to redistribute it under'
-    print 'certain conditions.'
+    print('mingus version 0.5, Copyright (C) 2008-2011, Bart Spaans\n')
+    print('mingus comes with ABSOLUTELY NO WARRANTY. This is free')
+    print('software and you are welcome to redistribute it under')
+    print('certain conditions.')
     if len(sys.argv) == 1:
-        print '\n\nUsage:', sys.argv[0], 'OUTPUT-DIRECTORY'
+        print('\n\nUsage:', sys.argv[0], 'OUTPUT-DIRECTORY')
         sys.exit(1)
     elif not os.path.isdir(sys.argv[1]):
-        print '\n\nError: not a valid directory:', sys.argv[1]
+        print('\n\nError: not a valid directory:', sys.argv[1])
         sys.exit(1)
     generate_package_wikidocs('mingus.core', 'ref', '.wiki')
     generate_package_wikidocs('mingus.midi', 'ref', '.wiki')
